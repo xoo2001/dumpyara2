@@ -1,0 +1,9 @@
+.githubtoken
+.tgtoken
+extract-dtb/
+extract-ikconfig
+Firmware_extractor/
+input/
+mkbootimg_tools/
+vmlinux-to-elf/
+working/

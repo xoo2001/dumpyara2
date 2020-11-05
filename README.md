@@ -1,7 +1,6 @@
 # dumpyara
 
-**[Telegram channel (feed)](https://t.me/android_dumps)**  
-**[Telegram group for dump requests](https://t.me/dumprequests)**
+**[U can see the result at my channel](https://t.me/ZyCromerZ)** 
 
 **Script requirements**:
 
@@ -21,4 +20,5 @@ Before you start, make sure that dumpyara scripts are mapped to your own org or 
 **Supported image types**:  
 check [here](https://github.com/AndroidDumps/Firmware_extractor/blob/master/extractor.sh#L3)  
 
-If you're a member of AndroidDumps org, use a token with following permissions: `admin:org, public_repo`
+plus this things only for my self xD
+original repo from https://git.rip/dumps/dumpyara

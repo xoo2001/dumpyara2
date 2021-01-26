@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Link="https://shared.zyc-files.workers.dev/0:/miui_BEGONIA_21.1.20_db50c76261_11.0.zip"
+Link="https://shared.zyc-files.workers.dev/0:/@gdriveit_bot.miui_BEGONIA_21.1.22_d28f4ee734_11.0.zip"
 FileName="$(pwd)/memeui.zip"
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y update && apt-get -y upgrade && apt-get install -y unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract file-roller device-tree-compiler liblzma-dev python3 python3-pip brotli liblz4-tool axel gawk aria2 detox wget

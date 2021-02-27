@@ -153,7 +153,7 @@ description=$(grep -oP "(?<=^ro.build.description=).*" -hs {system,system/system
 [[ -z "${description}" ]] && description=$(grep -oP "(?<=^ro.vendor.build.description=).*" -hs vendor/build*.prop)
 [[ -z "${description}" ]] && description=$(grep -oP "(?<=^ro.system.build.description=).*" -hs {system,system/system}/build*.prop)
 [[ -z "${description}" ]] && description="$flavor $release $id $incremental $tags"
-branch=$(echo "$description" | tr ' ' '-')
+branch=$(echo "$description" | tr ' ' '-' | tr '\r\n' ' ' | awk {'print $1}' )
 repo=$(echo "$brand"_"$codename"_dump | tr '[:upper:]' '[:lower:]')
 platform=$(echo "$platform" | tr '[:upper:]' '[:lower:]' | tr -dc '[:print:]' | tr '_' '-' | cut -c 1-35)
 top_codename=$(echo "$codename" | tr '[:upper:]' '[:lower:]' | tr -dc '[:print:]' | tr '_' '-' | cut -c 1-35)

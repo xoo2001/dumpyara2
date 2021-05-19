@@ -1,6 +1,6 @@
 #!/bin/bash
 
-Link="https://delicate-queen-d0bf.zyc-files.workers.dev/0:/miui_LANCELOTIDGlobal_V12.0.2.0.QJCIDXM_2c7640d9a1_10.0.zip"
+Link="https://gcc-drive.zyc-files.workers.dev/1:/miui_VAYUIDGlobal_V12.0.3.0.RJUIDXM_1511576317_11.0.zip"
 FileName="$(pwd)/memeui.zip"
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y update && apt-get -y upgrade && apt-get install -y unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract file-roller device-tree-compiler liblzma-dev python3 python3-pip brotli liblz4-tool axel gawk aria2 detox wget

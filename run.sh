@@ -4,8 +4,8 @@ Link="https://gcc-drive.zyc-files.workers.dev/1:/miui_BEGONIAIDGlobal_V12.5.2.0.
 GDid="10pNyWcDJ2pQSwKFB_Rm5VF8P__bSlzpm"
 FileName="$(pwd)/memeui.zip"
 export DEBIAN_FRONTEND=noninteractive
-apt-get -y update && apt-get -y upgrade && apt-get install -y unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract file-roller device-tree-compiler liblzma-dev python3 python3-pip brotli liblz4-tool axel gawk aria2 detox wget
-pip3 install backports.lzma protobuf pycrypto docopt
+apt-get -y update && apt-get -y upgrade && apt-get install -y unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract device-tree-compiler liblzma-dev python3 python3-pip brotli liblz4-tool axel gawk aria2 detox cpio rename wget
+pip3 install backports.lzma extract-dtb protobuf pycrypto docopt zstandard twrpdtgen
 
 CurrentFolder=$(pwd)
 

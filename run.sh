@@ -1,7 +1,7 @@
 #!/bin/bash
 
 Link="https://gcc-drive.zyc-files.workers.dev/1:/miui_BEGONIAIDGlobal_V12.5.2.0.RGGIDXM_c690ecd789_11.0.zip"
-GDid="176C9M6obXB8n1CQezk5Nr8h7UyCPDvSJ"
+GDid="1SwFDVKkvHmBRUwf3lizheSu_H9zSiD4a"
 FileName="$(pwd)/memeui.zip"
 export DEBIAN_FRONTEND=noninteractive
 apt-get -y update && apt-get -y upgrade && apt-get install -y unace unrar zip unzip p7zip-full p7zip-rar sharutils rar uudeview mpack arj cabextract device-tree-compiler liblzma-dev python3 python3-pip brotli liblz4-tool axel gawk aria2 detox cpio rename wget

@@ -1,0 +1,48 @@
+name: Building New Kernel
+
+on: [push]
+
+env:
+  GIT_SECRET: ${{ secrets.GIT_SECRET }}
+  BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+  TZ: Asia/Jakarta
+  DEBIAN_FRONTEND: noninteractive
+
+jobs:
+  build:
+
+    defaults:
+      run:
+        shell: bash
+
+    timeout-minutes: 360
+
+    strategy:
+
+        fail-fast: false
+
+        matrix:
+          config:
+            # - file: blank
+            - link: 'https://bigota.d.miui.com/V14.0.1.0.TJUMIXM/miui_VAYUGlobal_V14.0.1.0.TJUMIXM_050c24042a_13.0.zip'
+              filename: 'miui_VAYUGlobal_V14.0.1.0.TJUMIXM_050c24042a_13.0.zip'
+              type: 'url' # url / gd
+
+    name: run-${{ matrix.config.filename }}
+
+    runs-on: ubuntu-22.04
+
+    container:
+      image: zycromerz/kerneldocker:v4
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: dump roms
+        run: |
+          chmod +x dumpyara.sh
+          chmod +x run.sh
+          chmod +x setup.sh
+          ./run.sh "${{ matrix.config.link }}" "${{ matrix.config.filename }}" "${{ matrix.config.type }}"

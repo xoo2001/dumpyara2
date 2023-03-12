@@ -24,8 +24,8 @@ jobs:
         matrix:
           config:
             # - file: blank
-            - link: 'https://bigota.d.miui.com/V14.0.1.0.TJUMIXM/miui_VAYUGlobal_V14.0.1.0.TJUMIXM_050c24042a_13.0.zip'
-              filename: 'miui_VAYUGlobal_V14.0.1.0.TJUMIXM_050c24042a_13.0.zip'
+            - link: 'https://bigota.d.miui.com/V14.0.3.0.TJUIDXM/miui_VAYUIDGlobal_V14.0.3.0.TJUIDXM_4237a9eab2_13.0.zip'
+              filename: 'miui_VAYUIDGlobal_V14.0.3.0.TJUIDXM_4237a9eab2_13.0.zip'
               type: 'url' # url / gd
 
     name: run-${{ matrix.config.filename }}

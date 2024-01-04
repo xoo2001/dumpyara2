@@ -11,15 +11,16 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Create input & working directory if it does not exist
 mkdir -p "$PROJECT_DIR"/input "$PROJECT_DIR"/working
 
-# Determine which command to use for privilege escalation
-if command -v sudo > /dev/null 2>&1; then
-    sudo_cmd="sudo"
-elif command -v doas > /dev/null 2>&1; then
-    sudo_cmd="doas"
-else
-    echo "Neither sudo nor doas found. Please install one of them."
-    exit 1
-fi
+# # Determine which command to use for privilege escalation
+# if command -v sudo > /dev/null 2>&1; then
+#     sudo_cmd="sudo"
+# elif command -v doas > /dev/null 2>&1; then
+#     sudo_cmd="doas"
+# else
+#     echo "Neither sudo nor doas found. Please install one of them."
+#     exit 1
+# fi
+sudo_cmd=""
 
 # Activate virtual environment
 source .venv/bin/activate
@@ -52,7 +53,7 @@ else
     [[ -e "$URL" ]] || { echo "Invalid Input" && exit 1; }
 fi
 
-ORG=AndroidDumps #your GitHub org name
+ORG=ZyCromerZ #your GitHub org name
 FILE=$(echo ${URL##*/} | inline-detox)
 EXTENSION=$(echo ${URL##*.} | inline-detox)
 UNZIP_DIR=${FILE/.$EXTENSION/}
@@ -218,7 +219,7 @@ description=$(grep -oP "(?<=^ro.build.description=).*" -hs {system,system/system
 [[ -z "${description}" ]] && description="$flavor $release $id $incremental $tags"
 is_ab=$(grep -oP "(?<=^ro.build.ab_update=).*" -hs {system,system/system,vendor}/build*.prop | head -1)
 [[ -z "${is_ab}" ]] && is_ab="false"
-branch=$(echo "$description" | tr ' ' '-')
+branch=$(echo "$description" | tr ' ' '-' | tr '\n' '-')
 repo=$(echo "$brand"_"$codename"_dump | tr '[:upper:]' '[:lower:]')
 platform=$(echo "$platform" | tr '[:upper:]' '[:lower:]' | tr -dc '[:print:]' | tr '_' '-' | cut -c 1-35)
 top_codename=$(echo "$codename" | tr '[:upper:]' '[:lower:]' | tr -dc '[:print:]' | tr '_' '-' | cut -c 1-35)
@@ -247,10 +248,10 @@ if [[ -n $GIT_OAUTH_TOKEN ]]; then
     curl --silent --fail "https://raw.githubusercontent.com/$ORG/$repo/$branch/all_files.txt" 2> /dev/null && echo "Firmware already dumped!" && exit 1
     git init
     if [[ -z "$(git config --get user.email)" ]]; then
-        git config user.email AndroidDumps@github.com
+        git config user.email neetroid97@gmail.com
     fi
     if [[ -z "$(git config --get user.name)" ]]; then
-        git config user.name AndroidDumps
+        git config user.name ZyCromerZ
     fi
     curl -s -X POST -H "Authorization: token ${GIT_OAUTH_TOKEN}" -d '{ "name": "'"$repo"'" }' "https://api.github.com/orgs/${ORG}/repos" #create new repo
     curl -s -X PUT -H "Authorization: token ${GIT_OAUTH_TOKEN}" -H "Accept: application/vnd.github.mercy-preview+json" -d '{ "names": ["'"$manufacturer"'","'"$platform"'","'"$top_codename"'"]}' "https://api.github.com/repos/${ORG}/${repo}/topics"
@@ -283,9 +284,13 @@ else
 fi
 
 # Telegram channel
-TG_TOKEN=$(< "$PROJECT_DIR"/.tgtoken)
+if [[ -n $3 ]]; then
+    TG_TOKEN="$3"
+else
+    TG_TOKEN=$(< "$PROJECT_DIR"/.tgtoken)
+fi
 if [[ -n "$TG_TOKEN" ]]; then
-    CHAT_ID="@android_dumps"
+    CHAT_ID="@ZyCromerZ"
     commit_head=$(git log --format=format:%H | head -n 1)
     commit_link="https://github.com/$ORG/$repo/commit/$commit_head"
     echo -e "Sending telegram notification"

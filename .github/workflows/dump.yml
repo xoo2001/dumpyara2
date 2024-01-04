@@ -35,8 +35,8 @@ jobs:
 
     runs-on: ubuntu-22.04
 
-    container:
-      image: zycromerz/kerneldocker:v4
+    # container:
+    #   image: zycromerz/kerneldocker:v4
 
     steps:
 
@@ -48,4 +48,5 @@ jobs:
           chmod +x dumpyara.sh
           chmod +x run.sh
           chmod +x setup.sh
+          ./setup.sh
           ./run.sh "${{ matrix.config.link }}" "${{ matrix.config.filename }}" "${{ matrix.config.type }}"

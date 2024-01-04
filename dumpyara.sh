@@ -11,16 +11,15 @@ PROJECT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 # Create input & working directory if it does not exist
 mkdir -p "$PROJECT_DIR"/input "$PROJECT_DIR"/working
 
-# # Determine which command to use for privilege escalation
-# if command -v sudo > /dev/null 2>&1; then
-#     sudo_cmd="sudo"
-# elif command -v doas > /dev/null 2>&1; then
-#     sudo_cmd="doas"
-# else
-#     echo "Neither sudo nor doas found. Please install one of them."
-#     exit 1
-# fi
-sudo_cmd=""
+# Determine which command to use for privilege escalation
+if command -v sudo > /dev/null 2>&1; then
+    sudo_cmd="sudo"
+elif command -v doas > /dev/null 2>&1; then
+    sudo_cmd="doas"
+else
+    echo "Neither sudo nor doas found. Please install one of them."
+    exit 1
+fi
 
 # Activate virtual environment
 source .venv/bin/activate

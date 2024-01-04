@@ -19,7 +19,7 @@ pip3 install backports.lzma extract-dtb protobuf pycrypto docopt zstandard twrpd
 CurrentFolder=$(pwd)
 
 if [[ "$Type" == "gd" ]];then
-    wget --load-cookies cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id='${GDid} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${GDid}" -O "$FileName" && rm -rf cookies.txt
+    wget --load-cookies cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id='${Link} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${Link}" -O "$FileName" && rm -rf cookies.txt
 elif [[ "$Type" == "url" ]];then
     wget "$Link" -O "$FileName"
 else

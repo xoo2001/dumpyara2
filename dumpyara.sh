@@ -26,7 +26,7 @@ source .venv/bin/activate
 
 # GitHub token
 if [[ -n $2 ]]; then
-    GIT_OAUTH_TOKEN=$2
+    GIT_OAUTH_TOKEN="$2"
 elif [[ -f ".githubtoken" ]]; then
     GIT_OAUTH_TOKEN=$(< .githubtoken)
 else
@@ -252,7 +252,7 @@ if [[ -n $GIT_OAUTH_TOKEN ]]; then
     if [[ -z "$(git config --get user.name)" ]]; then
         git config user.name ZyCromerZ
     fi
-    curl -s -X POST -H "Authorization: token ${GIT_OAUTH_TOKEN}" -d '{ "name": "'"$repo"'" }' "https://api.github.com/orgs/${ORG}/repos" #create new repo
+    curl -s -X POST -H "Authorization: token ${GIT_OAUTH_TOKEN}" -d '{ "name": "'"$repo"'" }' "https://api.github.com/user/repos" #create new repo
     curl -s -X PUT -H "Authorization: token ${GIT_OAUTH_TOKEN}" -H "Accept: application/vnd.github.mercy-preview+json" -d '{ "names": ["'"$manufacturer"'","'"$platform"'","'"$top_codename"'"]}' "https://api.github.com/repos/${ORG}/${repo}/topics"
     git remote add origin https://github.com/$ORG/"${repo,,}".git
     git checkout -b "$branch"
@@ -277,6 +277,18 @@ if [[ -n $GIT_OAUTH_TOKEN ]]; then
     git commit -asm "Add product priv-app for ${description}" && "${GITPUSH[@]}"
     git add product/
     git commit -asm "Add product for ${description}" && "${GITPUSH[@]}"
+    (
+        if [[ -d ${PROJECT_DIR}/working/${UNZIP_DIR}/aosp-device-tree ]];then
+            cd ${PROJECT_DIR}/working/${UNZIP_DIR}/aosp-device-tree
+            GITPUSHAosp=(git push https://"$GIT_OAUTH_TOKEN"@github.com/$ORG/"${repo,,}"-aospdt.git "$branch")
+            curl -s -X POST -H "Authorization: token ${GIT_OAUTH_TOKEN}" -d '{ "name": "'"${repo}-aospdt"'" }' "https://api.github.com/user/repos" #create new repo
+            git init
+            git remote add origin https://github.com/$ORG/"${repo,,}"-aospdt.git
+            git checkout -b "$branch"
+            git add .
+            git commit -sm "for ${description}" && "${GITPUSHAosp[@]}"
+        fi
+    )
 else
     echo "Dump done locally."
     exit 1
@@ -302,6 +314,11 @@ if [[ -n "$TG_TOKEN" ]]; then
         printf "\n<a href=\"%s\">Commit</a>" "$commit_link"
         printf "\n<a href=\"https://github.com/%s/%s/tree/%s/\">%s</a>" "$ORG" "$repo" "$branch" "$codename"
     } >> "$PROJECT_DIR"/working/tg.html
+    if [[ -d ${PROJECT_DIR}/working/${UNZIP_DIR}/aosp-device-tree ]];then
+        { 
+            printf "\n<a href=\"https://github.com/%s/%s/tree/%s/\">%s</a>" "$ORG" "$repo-aospdt" "$branch" "$codename-aospdt" 
+        } >> "$PROJECT_DIR"/working/tg.html
+    fi
     TEXT=$(< "$PROJECT_DIR"/working/tg.html)
     curl -s "https://api.telegram.org/bot${TG_TOKEN}/sendmessage" --data "text=${TEXT}&chat_id=${CHAT_ID}&parse_mode=HTML&disable_web_page_preview=True" > /dev/null
     rm -rf "$PROJECT_DIR"/working/tg.html

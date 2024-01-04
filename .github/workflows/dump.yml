@@ -40,6 +40,9 @@ jobs:
 
     steps:
 
+      - name: "Cleanup Environment"
+        uses: rokibhasansagar/slimhub_actions@main
+
       - name: Checkout
         uses: actions/checkout@v3
 

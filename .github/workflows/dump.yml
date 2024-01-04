@@ -24,12 +24,12 @@ jobs:
         matrix:
           config:
             # - file: blank
-            # - link: 'https://bigota.d.miui.com/V14.0.3.0.TJUIDXM/miui_VAYUIDGlobal_V14.0.3.0.TJUIDXM_4237a9eab2_13.0.zip'
-            #   filename: 'miui_VAYUIDGlobal_V14.0.3.0.TJUIDXM_4237a9eab2_13.0.zip'
-            #   type: 'url' # url / gd
-            - link: '1CjDP-E4P28QXF8Y_cO55AMSYoJx6SWK7'
-              filename: 'Infinix-NOTE-40-Pro-X6850.zip'
-              type: 'gd' # url / gd
+            - link: 'https://bigota.d.miui.com/V12.5.6.0.RGGIDXM/miui_BEGONIAIDGlobal_V12.5.6.0.RGGIDXM_e5599068e6_11.0.zip'
+              filename: 'miui_BEGONIAIDGlobal_V12.5.6.0.RGGIDXM_e5599068e6_11.0.zip'
+              type: 'url' # url / gd
+            # - link: '1CjDP-E4P28QXF8Y_cO55AMSYoJx6SWK7'
+            #   filename: 'Infinix-NOTE-40-Pro-X6850.zip'
+            #   type: 'gd' # url / gd
 
     name: run-${{ matrix.config.filename }}
 

@@ -257,6 +257,11 @@ if [[ -n $GIT_OAUTH_TOKEN ]]; then
     git remote add origin https://github.com/$ORG/"${repo,,}".git
     git checkout -b "$branch"
     find . -size +97M -printf '%P\n' -o -name "*sensetime*" -printf '%P\n' -o -name "*.lic" -printf '%P\n' >| .gitignore
+    for GetIgnoreFiles in $(cat .gitignore)
+    do
+        # split file size over than 97m
+        zip -s 50m "${GetIgnoreFiles}-split.zip" "${GetIgnoreFiles}"
+    done
     git add --all
     git commit -asm "Add ${description}"
     git update-ref -d HEAD

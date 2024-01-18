@@ -6,6 +6,7 @@
 Link="${1}"
 FileName="${2}"
 Type="${3}"
+Mdcheck="${4}"
 
 if [[ -z "${GIT_SECRET}" ]] && [[ -z "${BOT_TOKEN}" ]];then
     echo "token null"
@@ -28,6 +29,18 @@ elif [[ "$Type" == "url" ]];then
     wget --quiet "$Link" -O "$FileName"
 else
     echo "url type error, only 'gd' and 'url' can be used"
+fi
+
+if [[ ! -z $Mdcheck ]];then
+    local GetTheInfo="$(md5sum $FileName )"
+    if [[ "$GetTheInfo" == *"$Mdcheck"* ]];then
+        echo "md5 matched"
+        echo "md5: $Mdcheck"
+    else
+        echo "md5 different?"
+        echo "$GetTheInfo"
+        echo "expedted md5: $Mdcheck"
+    fi
 fi
 
 bash dumpyara.sh "$FileName" "${GIT_SECRET}" "${BOT_TOKEN}"

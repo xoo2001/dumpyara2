@@ -29,6 +29,7 @@ jobs:
             #   type: 'url' # url / gd
             - link: '1BlXjpB3pvH62ekU21R9Ab25owUKR7LJl'
               filename: 'Infinix-GT-10-Pro-X6739-V2683.zip'
+              md5check: '09df3dd92002ea4c7c00b7d4f876a4b1'
               type: 'gd' # url / gd
 
     name: run-${{ matrix.config.filename }}
@@ -52,4 +53,4 @@ jobs:
           chmod +x run.sh
           chmod +x setup.sh
           ./setup.sh
-          ./run.sh "${{ matrix.config.link }}" "${{ matrix.config.filename }}" "${{ matrix.config.type }}"
+          ./run.sh "${{ matrix.config.link }}" "${{ matrix.config.filename }}" "${{ matrix.config.type }}" "${{ matrix.config.md5check }}"

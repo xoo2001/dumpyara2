@@ -6,7 +6,8 @@
 Link="${1}"
 FileName="${2}"
 Type="${3}"
-Mdcheck="${4}"
+NoOutput="${4}"
+Mdcheck="${5}"
 
 if [[ -z "${GIT_SECRET}" ]] && [[ -z "${BOT_TOKEN}" ]];then
     echo "token null"
@@ -23,16 +24,24 @@ CurrentFolder=$(pwd)
 
 if [[ "$Type" == "gd" ]];then
     echo "download ${FileName} files, it takes some minutes, maybe"
-    wget --quiet --load-cookies cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id='${Link} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${Link}" -O "$FileName" && rm -rf cookies.txt
+    if [[ ! -z "$NoOutput" ]] && [[ "$NoOutput" == "y" ]];then
+        wget --quiet --load-cookies cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id='${Link} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${Link}" -O "$FileName" && rm -rf cookies.txt
+    else
+        wget --load-cookies cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id='${Link} -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=${Link}" -O "$FileName" && rm -rf cookies.txt
+    fi
 elif [[ "$Type" == "url" ]];then
     echo "download ${FileName} files, it takes some minutes, maybe"
-    wget --quiet "$Link" -O "$FileName"
+    if [[ ! -z "$NoOutput" ]] && [[ "$NoOutput" == "y" ]];then
+        wget --quiet "$Link" -O "$FileName"
+    else
+        wget "$Link" -O "$FileName"
+    fi
 else
     echo "url type error, only 'gd' and 'url' can be used"
 fi
 
-if [[ ! -z $Mdcheck ]];then
-    local GetTheInfo="$(md5sum $FileName )"
+if [[ ! -z "$Mdcheck" ]];then
+    GetTheInfo="$(md5sum $FileName )"
     if [[ "$GetTheInfo" == *"$Mdcheck"* ]];then
         echo "md5 matched"
         echo "md5: $Mdcheck"

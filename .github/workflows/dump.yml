@@ -27,11 +27,11 @@ jobs:
             # - link: 'https://bigota.d.miui.com/V12.5.6.0.RGGIDXM/miui_BEGONIAIDGlobal_V12.5.6.0.RGGIDXM_e5599068e6_11.0.zip'
             #   filename: 'miui_BEGONIAIDGlobal_V12.5.6.0.RGGIDXM_e5599068e6_11.0.zip'
             #   type: 'url' # url / gd
-            - link: '1BlXjpB3pvH62ekU21R9Ab25owUKR7LJl'
+            - link: 'https://drive.usercontent.google.com/download?id=1BlXjpB3pvH62ekU21R9Ab25owUKR7LJl&export=download&confirm=t&uuid=c063ea6c-95ff-4bb2-a531-17dd767f3513&at=APZUnTUpz5CIkIpZB8I8EfhY1vAb:1705753400327'
               filename: 'Infinix-GT-10-Pro-X6739-V2683.zip'
               md5check: '09df3dd92002ea4c7c00b7d4f876a4b1'
               no-detail-dl: 'n'
-              type: 'gd' # url / gd
+              type: 'url' # url / gd
 
     name: run-${{ matrix.config.filename }}
 

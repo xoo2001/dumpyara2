@@ -52,7 +52,7 @@ else
     [[ -e "$URL" ]] || { echo "Invalid Input" && exit 1; }
 fi
 
-ORG=ZyCromerZ #your GitHub org name
+ORG=xoo2001 #your GitHub org name
 FILE=$(echo ${URL##*/} | inline-detox)
 EXTENSION=$(echo ${URL##*.} | inline-detox)
 UNZIP_DIR=${FILE/.$EXTENSION/}
@@ -247,10 +247,10 @@ if [[ -n $GIT_OAUTH_TOKEN ]]; then
     curl --silent --fail "https://raw.githubusercontent.com/$ORG/$repo/$branch/all_files.txt" 2> /dev/null && echo "Firmware already dumped!" && exit 1
     git init
     if [[ -z "$(git config --get user.email)" ]]; then
-        git config user.email neetroid97@gmail.com
+        git config user.email ekora2001@gmail.com
     fi
     if [[ -z "$(git config --get user.name)" ]]; then
-        git config user.name ZyCromerZ
+        git config user.name xoo2001
     fi
     curl -s -X POST -H "Authorization: token ${GIT_OAUTH_TOKEN}" -d '{ "name": "'"$repo"'" }' "https://api.github.com/user/repos" #create new repo
     curl -s -X PUT -H "Authorization: token ${GIT_OAUTH_TOKEN}" -H "Accept: application/vnd.github.mercy-preview+json" -d '{ "names": ["'"$manufacturer"'","'"$platform"'","'"$top_codename"'"]}' "https://api.github.com/repos/${ORG}/${repo}/topics"
@@ -294,7 +294,7 @@ else
     TG_TOKEN=$(< "$PROJECT_DIR"/.tgtoken)
 fi
 if [[ -n "$TG_TOKEN" ]]; then
-    CHAT_ID="@ZyCromerZ"
+    CHAT_ID="@layeardssh_bot"
     commit_head=$(git log --format=format:%H | head -n 1)
     commit_link="https://github.com/$ORG/$repo/commit/$commit_head"
     echo -e "Sending telegram notification"
